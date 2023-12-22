@@ -1,0 +1,277 @@
+@font-face {
+    font-family: OpenSansExtraBold;
+    src: url(../resources/TitilliumWeb-Black.ttf);
+}
+
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+html{
+    max-width: 280px;
+    max-height: 642px;
+}
+
+body{
+    background-color: #2B3A55;
+    padding: 10px;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #434242; 
+    border-radius: 20px;
+}
+button{
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+button:hover{
+    background-color: #cc8f8f;
+}
+
+#matching-options{
+    margin-top: 5px;
+}
+
+.flex-center{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+.hidden{
+    display: none;
+}
+
+.title-text{
+    font-family: OpenSansExtraBold;
+    color: #CE7777;
+}
+.label-text{
+    font-family: OpenSansExtraBold;
+    color: #F0E9D2;
+}
+
+#logo-text{
+    font-size: 52px;
+    line-height: 42px;
+    padding-right: 25px;
+    text-shadow: 4px 4px #181D31;
+}
+
+.screen-selector{
+    width: 100%;
+    height: 30px;
+    margin-top: 10px;
+    border-radius: 5px;
+    background-color: #181D31;
+}
+.screen-button{
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    background: none;
+    border-width: 0px;
+    transition: all .25s;
+}
+
+.screen-button:hover{
+    background-color: #cc8f8f;
+    color: #181D31;
+}
+
+#selected-screen{
+    background-color: #CE7777;
+    color: #181D31;
+}
+
+.screen-button:first-child{
+    border-radius: 5px 0px 0px 5px;
+}
+.screen-button:last-child{
+    border-radius: 0px 5px 5px 0px;
+}
+
+
+.container-text{
+    font-size: 24px;
+    line-height: 24px;
+}
+
+.container{
+    width: 100%;
+    background-color: #181D31;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.container-aligner{
+    padding: 10px;
+
+}
+
+.dropdown{
+    font-family: OpenSansExtraBold;
+    color: #434242;
+    background-color: #F0E9D2;
+    outline: none;
+    border: none;
+    width: 100%;
+    border-radius: 5px;
+    padding: 2.5px;
+    font-size: 16px;
+}
+
+
+.action{
+    width: 100%;
+    display: inline-block;
+    margin-top: 5px;
+}
+.action-button{
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #CE7777;
+    font-size: 16px;
+    line-height: 30px;
+    color: #181D31;
+}
+
+
+.output-section{
+    margin-top: 5px;
+}
+.output{
+    font-family: OpenSansExtraBold;
+    color: #434242;
+    line-height: 16px;
+    background-color: #F0E9D2;
+    border-radius: 5px;
+    min-height: 15px;
+    max-height: 100px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 7.5px;
+    font-size: 16px;
+}
+
+
+.input-container{
+    height: 100%;
+    width: 60%;
+    display: flex;
+    float: right;
+    align-items: center;
+    justify-content: flex-end;
+}
+.options-input{
+    width: 100%;
+    font-family: OpenSansExtraBold;
+    color: #434242;
+    background-color: #F0E9D2;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    padding: 2.5px;
+    float: right;
+}
+.options-dropdown{
+    width: 100%;
+    font-family: OpenSansExtraBold;
+    color: #434242;
+    background-color: #F0E9D2;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    padding: 2.5px;
+    float: right;
+}
+
+.option-text{
+    display: inline-block;
+    font-size: 14px;
+    line-height: 30px;
+}
+.option{
+    height: 30px;
+}
+.option:not(:last-child){
+    margin-bottom: 5px;
+}
+.option-divider{
+    margin-bottom: 5px;
+}
+
+
+
+
+/* Slider thanks w3 schools */
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #CE7777;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #CE7777;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 24px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+        

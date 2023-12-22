@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Pocket Genius</title>
+</head>
+<body>
+    <header>
+        <div class="flex-center">
+            <h1 class="title-text" id="logo-text">Pocket Genius</h1>
+            <img width="75" height="75" class="logo-img" src="../resources/icon.png">
+        </div>
+    </header>
+    <div class="screen-selector flex-center" id="screen-selector">
+        <button value="home" class="screen-button title-text" id="selected-screen">Home</button>
+        <button value="options" class="screen-button title-text">Options</button>
+    </div>
+    <div id="screen-container">
+        <div class="screen" id="home">
+            <div class="container">
+                <div class="container-aligner">
+                    <h2 class="title-text container-text">Actions</h2>
+                    <div>
+                        <div class="action">
+                            <button class="action-button title-text" id="selected-solve-button">Solve Selected</button>
+                        </div>
+                        <div class="action">
+                            <button class="action-button title-text" id="all-solve-button">Solve All</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="container-aligner">
+                    <h2 class="title-text container-text">Questions</h2>
+                    <div style="margin-top: 5px">
+                        <div class="output-section">
+                            <h3 class="title-text">Number</h3>
+                            <div class="dropdown-container">
+                                <select class="dropdown" id="question-selector" name="Question">
+                                    <option>Select Question</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="output-section">
+                            <h3 class="title-text">Question</h3>
+                            <div class="output" id="question-view">
+                                Question
+                            </div>
+                        </div>
+                        <div class="output-section" id="type-output-section">
+                            <h3 class="title-text">Type</h3>
+                            <div class="output" id="question-type">
+                                Question Type
+                            </div>
+                        </div>
+                        <div class="output-section" id="choices-output-section">
+                            <h3 class="title-text">Choices</h3>
+                            <div class="output" id="answer-options">
+                                Answer Options
+                            </div>
+                            <div class="output" id="matching-options">
+                                Matching Options
+                            </div>
+                        </div>
+                        <div class="output-section" id="api-output-section">
+                            <h3 class="title-text">Response</h3>
+                            <div class="output" id="question-response">
+                                API Response
+                            </div>
+                        </div>
+                        <div class="output-section">
+                            <h3 class="title-text">Answer</h3>
+                            <div class="output" id="answer-view">
+                                Answer
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="screen hidden" id="options">
+            <div class="container">
+                <div class="container-aligner">
+                    <!-- <h2 class="title-text" id="container-text">Options</h2> -->
+                    <div>
+                        <h2 class="title-text container-text option-divider">Extension Options</h2>
+                        <div class="option">
+                            <div class="title-text option-text">
+                                <h3>API Key</h3>
+                            </div>
+                            <div class="input-container">
+                                <input class="options-input" id="api-key-input" placeholder="API Key">
+                            </div>
+                        </div>
+                        <!-- <div class="option">
+                            <div class="title-text option-text">
+                                <h3>Model</h3>
+                            </div>
+                            <div class="input-container">
+                                <select class="options-dropdown" id="model-selector">
+                                    <option>Select Model</option>
+                                </select>
+                            </div>
+                        </div> -->
+                        <div class="option">
+                            <div class="title-text option-text">
+                                <h3>Highlight</h3>
+                            </div>
+                            <div class="input-container">
+                                <label class="switch">
+                                    <input type="checkbox" id="answer-highlight">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option">
+                            <div class="title-text option-text">
+                                <h3>Ghost Mode</h3>
+                            </div>
+                            <div class="input-container">
+                                <label class="switch">
+                                    <input type="checkbox" id="ghost-mode">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option">
+                            <div class="title-text option-text">
+                                <h3>Auto Input</h3>
+                            </div>
+                            <div class="input-container">
+                                <label class="switch">
+                                    <input type="checkbox" id="auto-input">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="container-aligner">
+                        <h2 class="title-text container-text option-divider">Interface Visibility</h2>
+                        <div class="option">
+                            <div class="title-text option-text">
+                                <h3>Type</h3>
+                            </div>
+                            <div class="input-container">
+                                <label class="switch">
+                                    <input type="checkbox" id="type-output">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option">
+                            <div class="title-text option-text">
+                                <h3>Choices</h3>
+                            </div>
+                            <div class="input-container">
+                                <label class="switch">
+                                    <input type="checkbox" id="choices-output">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="option">
+                            <div class="title-text option-text">
+                                <h3>Response</h3>
+                            </div>
+                            <div class="input-container">
+                                <label class="switch">
+                                    <input type="checkbox" id="api-output">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>

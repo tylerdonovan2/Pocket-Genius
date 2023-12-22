@@ -1,0 +1,36 @@
+{
+    "manifest_version": 2,
+    "name": "Pocket Genius",
+    "version": "1.0",
+    "permissions": [
+      "webRequest",
+      "webRequestBlocking",
+      "<all_urls>",
+      "tabs",
+      "storage"
+    ],
+    "background": {
+      "scripts": ["scripts/eventIntercepter.js","scripts/dataHandler.js","scripts/questionSolver.js"]
+    },
+    "content_scripts": [
+        {
+            "matches":["*://*/courses/*/quizzes/*/take"],
+            "js": ["scripts/eventStorageDumper.js"],
+            "run_at": "document_start"
+        },
+        {
+            "matches":["*://*/courses/*/quizzes/*/take"],
+            "js": ["scripts/questionScraper.js"],
+            "run_at": "document_end"
+        }
+    ],
+    "icons": {
+        "16": "resources/icon.png",
+        "48": "resources/icon.png",
+        "128": "resources/icon.png"
+    },
+    "browser_action": {
+        "default_icon": "resources/icon.png",
+        "default_popup": "popup/popup.html"
+    }
+  }
