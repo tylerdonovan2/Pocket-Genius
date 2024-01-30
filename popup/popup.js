@@ -45,6 +45,7 @@ chrome.storage.onChanged.addListener(function(changes){
     questions = changes[dataKey]["newValue"]
 
     updateQuestionSelector()
+    updateOutputDisplays()
 })
 
 
@@ -78,14 +79,12 @@ const questionTypeOutput = document.querySelector("#question-type")
 const apiResponseOutput = document.querySelector("#question-response")
 const answerOptionOutput = document.querySelector("#answer-options")
 const matchingOptionOutput = document.querySelector("#matching-options")
-const answerOutput = document.querySelector("#answer-view")
 
 function resetOutputDisplays(){
     questionTextOutput.innerText = "Question"
     questionTypeOutput.innerText = "Question Type"
     apiResponseOutput.innerText = "API Response"
     answerOptionOutput.innerText = "Answer Choices"
-    answerOutput.innerText = "Answer"
     matchingOptionOutput.innerText = "Matching Choices"
 
     matchingOptionOutput.className = "output hidden"
@@ -96,7 +95,6 @@ function eraseOutputDisplays(){
     questionTypeOutput.innerText = ""
     apiResponseOutput.innerText = ""
     answerOptionOutput.innerText = ""
-    answerOutput.innerText = ""
     matchingOptionOutput.innerText = ""
 
     matchingOptionOutput.className = "output hidden"
@@ -130,6 +128,10 @@ function updateOutputDisplays(){
         console.log(i,i < matchingOptions.length,matchingOptions.length)
         if(i !== matchingOptions.length - 1) matchingOptionOutput.innerText = matchingOptionOutput.innerText + "\n\n"
     }
+
+    if (!questionData.solved) return
+
+    apiResponseOutput.innerText = questionData.apiResponse
 }
 
 questionSelector.addEventListener('change', updateOutputDisplays)
@@ -181,7 +183,7 @@ for (let i = 0; i < toggleOptionsOff.length; i++){
 
 // user interface options
 
-const userInterfaceOptions = ["type-output","choices-output","api-output"]
+const userInterfaceOptions = ["type-output","choices-output"]
 
 
 for (let i = 0; i < userInterfaceOptions.length; i++){

@@ -7,7 +7,21 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             questions = items[parseInt(request.key)]
             console.log(questions)
             questionNumber = parseInt(request.questionNumber)
-            sendAPIRequest(questions[questionNumber])
+
+            if (questions[questionNumber].solved) {sendResponse("Already Solved")}
+
+            function updateCallback(apiResponse){
+                questions[questionNumber].apiResponse = apiResponse
+                questions[questionNumber].solved = true
+                console.log(questions)
+    
+                let object = {}
+                object[request.key] = questions
+                chrome.storage.local.set(object)
+            }
+
+
+            sendAPIRequest(questions[questionNumber],updateCallback)
         })
 
 
@@ -17,11 +31,11 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 });
 
 
-function sendAPIRequest(questionData){
+
+
+async function sendAPIRequest(questionData,updateCallback){
     let content = questionData.questionText + "\nAnswer Choices:\n"
-
     content = content + questionData.answerOptions.answers.map(i => i.text).join('\n')
-
     content = questionData.answerOptions.matches ? content + "\nMatching Options:\n" + questionData.answerOptions.matches.map(i => i.text).join('\n') : content
 
     console.log(content)
@@ -48,5 +62,6 @@ function sendAPIRequest(questionData){
     }).then(response => response.json()).then(data => {
         console.log(data)
         console.log(data['choices'][0]['message']['content'])
+        updateCallback(data['choices'][0]['message']['content'])
     });
 }
