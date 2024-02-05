@@ -31,16 +31,16 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     }
 });
 
-function maxXPATH(arr,key) {
+function maxIndex(arr,key) {
     let maxValue = Number.MIN_VALUE;
-    let xpath = ""
+    let index = 0
     for (let i = 0; i < arr.length; i++) {
         if (arr[i][key] > maxValue) {
             maxValue = arr[i][key];
-            xpath = arr[i]["xpath"]
+            index = i
         }
     }
-    return xpath;
+    return index;
 }
 
 function solveQuestion(question, key){
@@ -52,7 +52,9 @@ function solveQuestion(question, key){
                 question.answerOptions.answers[i].similarityScore = similarity(question.answerOptions.answers[i].text,apiResponse)
             }
         }
-        question.answerHighlight = maxXPATH(question.answerOptions.answers,"similarityScore")
+        let answerIndex = maxIndex(question.answerOptions.answers,"similarityScore")
+        question.answerHighlight = question.answerOptions.answers[answerIndex].xpath
+        question.answerConfidence = question.answerOptions.answers[answerIndex].similarityScore
 
         question.apiResponse = apiResponse
         question.solved = true

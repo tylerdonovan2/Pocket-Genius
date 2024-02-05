@@ -22,8 +22,10 @@ document.addEventListener("keypress",function(event){
 
                 if (!questionData.solved) continue
 
-
-                getElementByXpath(questionData.answerHighlight).style.backgroundColor = isHighlighted ? 'lightgreen' : ''
+                let confidence = questionData.answerConfidence
+                let highlightColor = "rgb(" + (1 - confidence) * 255 + "," + (confidence) * 255 + ",0)"
+ 
+                getElementByXpath(questionData.answerHighlight).style.backgroundColor = isHighlighted ? highlightColor : ''
             }
         })
     })
