@@ -6,7 +6,7 @@ function getElementByXpath(path) {
 
 document.addEventListener("keypress",function(event){
     if(event.key !== 'h') return
-    console.log("KEY PRESSED",event.key)
+
     chrome.runtime.sendMessage({action:"get-highlight-setting"},function(doHighlight){
         console.log(doHighlight.value)
         if(!doHighlight.value) return
@@ -23,7 +23,8 @@ document.addEventListener("keypress",function(event){
                 if (!questionData.solved) continue
 
                 let confidence = questionData.answerConfidence
-                let highlightColor = "rgb(" + (1 - confidence) * 255 + "," + (confidence) * 255 + ",0)"
+                let highlightColor = confidence > 0.5 ? "rgb(" + (1 - confidence) * 255 + ",255,0)" : "rgb(255," + (confidence) * 255 + ",0)"
+                
  
                 getElementByXpath(questionData.answerHighlight).style.backgroundColor = isHighlighted ? highlightColor : ''
             }
