@@ -10,13 +10,13 @@ document.addEventListener("keypress",function(event){
     chrome.runtime.sendMessage({action:"get-highlight-setting"},function(doHighlight){
         console.log(doHighlight.value)
         if(!doHighlight.value) return
-        console.log("HIGHLIGHTING")
+        console.log("HIGHLIGHTING",dataKey)
 
         isHighlighted = !isHighlighted
 
         chrome.runtime.sendMessage({action: "get-scrape-data", key: dataKey}, function(response){
             console.log(response)
-            for(let i = 0; i < response.value; i++){
+            for(let i = 0; i < response.value.length; i++){
                 let questionData = response.value[i]
                 console.log(questionData)
 

@@ -65,6 +65,25 @@ function getChildElement(parent,path){
     return currentElement
 }
 
+// Scrapes inner text
+function getTextFromNode(node, addSpaces) {
+    var i, result, text, child;
+    result = '';
+    for (i = 0; i < node.childNodes.length; i++) {
+        child = node.childNodes[i];
+        text = null;
+        if (child.nodeType === 1) {
+            text = getTextFromNode(child, addSpaces);
+        } else if (child.nodeType === 3) {
+            text = child.nodeValue;
+        }
+        if (text) {
+            if (addSpaces && /\S$/.test(result) && /^\S/.test(text)) text = ' ' + text;
+            result += text;
+        }
+    }
+    return result;
+}
 
 
 // scrape questions
@@ -80,7 +99,10 @@ function scrapeQuestions(){
         let questionType = question.children[2].classList[2]
 
         // grab question text
-        let questionText = getChildElement(question,[2,5,0]).innerText.trim()
+        let questionTextParent = getChildElement(question,[2,5,1])
+        console.log(questionTextParent)
+        let questionText = getTextFromNode(questionTextParent, true).trim()
+
 
         // canvas is stupid and puts html tags inside inner text so this is a fix
         if(questionText.includes("<") && questionText.includes("</")){
@@ -151,8 +173,12 @@ function shortAnswerHandler(questionRoot){
 
 // check if questions are already stored if not scrape them
 chrome.runtime.sendMessage({action: "get-scrape-data", key: dataKey}, function(response){
-    if(response.value.length) return
-    console.log(dataKey)
+    try{
+        if(response.value.length) return
+
+    } catch{}
+
+    console.log("Scraping", dataKey)
     let questions = scrapeQuestions()
     chrome.runtime.sendMessage({action: "set-scrape-data", key: dataKey, value: questions}, function(response) {});
 })
