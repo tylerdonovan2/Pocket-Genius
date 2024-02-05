@@ -18,6 +18,14 @@ const questionTypes = {
     "multiple_answers_question":{
         "type": "Select All",
         "handler": multipleChoiceHandler,
+    },
+    "short_answer_question":{
+        "type": "Short Answer",
+        "handler": shortAnswerHandler,
+    },
+    "fill_in_multiple_blanks_question":{
+        "type": "Fill In Multiple Blanks",
+        "handler": shortAnswerHandler,
     }
 }
 
@@ -134,6 +142,10 @@ function matchingHandler(questionRoot){
     }
 
     return {"answers":answers,"matches":matches}
+}
+
+function shortAnswerHandler(questionRoot){
+    return {"answers":[],"matches":null}
 }
 
 

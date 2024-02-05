@@ -33,18 +33,18 @@ chrome.storage.local.get(null,function(items){
     questions = items[dataKey] ? items[dataKey] : []
 
     chrome.storage.local.get('selected-question',function(items){
+        updateQuestionSelector()
         questionSelector.selectedIndex = items["selected-question"]
         updateOutputDisplays()
     })
 
-    updateQuestionSelector()
+    
 })
 chrome.storage.onChanged.addListener(function(changes){
     console.log(changes,dataKey)
     if(!changes[dataKey]) return
     questions = changes[dataKey]["newValue"]
 
-    updateQuestionSelector()
     updateOutputDisplays()
 })
 
@@ -101,11 +101,17 @@ function eraseOutputDisplays(){
 }
 
 function updateOutputDisplays(){
+
     eraseOutputDisplays()
     chrome.storage.local.set({"selected-question":questionSelector.selectedIndex})
     if(!questionSelector.value) return
-    
+    if(questionSelector.value == "Select Question") return
+
+
     let questionData = questions[questionSelector.value]
+
+    console.log(questionData,questionSelector.value,questions)
+
     questionTextOutput.innerText = questionData.questionText
     questionTypeOutput.innerText = questionData.questionType
     
@@ -113,20 +119,21 @@ function updateOutputDisplays(){
     for(let i = 0; i < answerOptions.length; i++){
         answerOptionOutput.innerText = answerOptionOutput.innerText + answerOptions[i].text
 
-        if(i !== answerOptions.length - 1) answerOptionOutput.innerText = answerOptionOutput.innerText + "\n\n"
+        if(i !== answerOptions.length - 1) answerOptionOutput.innerText = answerOptionOutput.innerText + "\n• "
     }
 
 
-    if(questionData.questionTypeCode !== "matching_question") return
+    if(questionData.questionTypeCode === "matching_question"){
 
-    matchingOptionOutput.className = "output"
-    
-    let matchingOptions = questionData.answerOptions.matches
-    for(let i = 0; i < matchingOptions.length; i++){
-        matchingOptionOutput.innerText = matchingOptionOutput.innerText + matchingOptions[i].text
+        matchingOptionOutput.className = "output"
+        
+        let matchingOptions = questionData.answerOptions.matches
+        for(let i = 0; i < matchingOptions.length; i++){
+            matchingOptionOutput.innerText = matchingOptionOutput.innerText + matchingOptions[i].text
 
-        console.log(i,i < matchingOptions.length,matchingOptions.length)
-        if(i !== matchingOptions.length - 1) matchingOptionOutput.innerText = matchingOptionOutput.innerText + "\n\n"
+            console.log(i,i < matchingOptions.length,matchingOptions.length)
+            if(i !== matchingOptions.length - 1) matchingOptionOutput.innerText = matchingOptionOutput.innerText + "\n\n"
+        }
     }
 
     if (!questionData.solved) return

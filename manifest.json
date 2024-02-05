@@ -22,6 +22,11 @@
             "matches":["*://*/courses/*/quizzes/*/take"],
             "js": ["scripts/questionScraper.js"],
             "run_at": "document_end"
+        },
+        {
+            "matches":["*://*/courses/*/quizzes/*/take"],
+            "js": ["scripts/answerHighlighter.js"],
+            "run_at": "document_end"
         }
     ],
     "icons": {
